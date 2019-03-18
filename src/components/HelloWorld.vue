@@ -1,5 +1,6 @@
 <template>
   <div class="box">
+    <div id="title">{{ date }}</div>
     <div id="week">
       <a class="week" href="javascript:;" @click="prev">prev</a>
       <a class="week" href="javascript:;" v-for="(el,index) in week" :key="index">{{ el }}</a>
@@ -10,21 +11,21 @@
         class="calendar calendar-else"
         href="javascript:;"
         v-for="(prev,index1) in prevData"
-        :key="index1"
+        :key="'index1'+index1"
         v-if="(index1+1)<weekNum"
       >{{ prevData[prevData.length - (weekNum - index1 - 1)] }}</a>
       <a
         class="calendar"
         href="javascript:;"
         v-for="(el,index2) in thisData"
-        :key="index2"
+        :key="'index2'+index2"
         :class="{'calendar-active': el == today?true:false}"
       >{{ el }}</a>
       <a
         class="calendar calendar-else"
         href="javascript:;"
         v-for="(next,index3) in nextData"
-        :key="index3"
+        :key="'index3'+index3"
         v-bind:data-key="index3"
         v-if="index3 < (42 - thisData.length - (weekNum - 1))"
       >{{ next }}</a>
@@ -40,12 +41,13 @@ export default {
     return {
       week: ["一", "二", "三", "四", "五", "六", "日"],
       year: new Date().getFullYear(),
-      month: new Date().getMonth()+1,
+      month: new Date().getMonth() + 1,
       today: new Date().getDate(),
       prevData: [],
       thisData: [],
       nextData: [],
-      weekNum: null
+      weekNum: null,
+      date: null
     };
   },
   created() {
@@ -57,14 +59,20 @@ export default {
       vm.prevData = [];
       vm.thisData = [];
       vm.nextData = [];
-      this.monthFirWeek(new Date(vm.year, vm.month-1, 1));
-      this.monthDayData(this.thisMonthLastDay(this.year, this.month-1), 'prev');
-      this.monthDayData(this.thisMonthLastDay(this.year, this.month), 'this');
-      this.monthDayData(this.thisMonthLastDay(this.year, this.month+1), 'next');
+      this.monthFirWeek(new Date(vm.year, vm.month - 1, 1));
+      this.monthDayData(
+        this.thisMonthLastDay(this.year, this.month - 1),
+        "prev"
+      );
+      this.monthDayData(this.thisMonthLastDay(this.year, this.month), "this");
+      this.monthDayData(
+        this.thisMonthLastDay(this.year, this.month + 1),
+        "next"
+      );
     },
     prev() {
       this.month--;
-      if(this.month == 0){
+      if (this.month == 0) {
         this.year--;
         this.month = 12;
       }
@@ -72,7 +80,7 @@ export default {
     },
     next() {
       this.month++;
-      if(this.month == 13){
+      if (this.month == 13) {
         this.year++;
         this.month = 1;
       }
@@ -80,11 +88,11 @@ export default {
     },
     // 每月第一天是周几
     monthFirWeek(date) {
-      console.log(this.timeFormat(date))
+      console.log(this.timeFormat(date));
       date.setDate(1);
       var num = date.getDay();
-      if(num == 0){
-        num == 7
+      if (num == 0) {
+        num == 7;
       }
       this.weekNum = num;
     },
@@ -93,15 +101,15 @@ export default {
       return new Date(year, month, 0).getDate();
     },
     // 每月的天数数组
-    monthDayData(day, btn){
-      for(var i =0; i<day; i++){
-        if(btn == 'prev'){
-          vm.prevData.push(i+1);
-        }else if(btn == 'this'){
-          vm.thisData.push(i+1);
-        }else if(btn == 'next'){
-          vm.nextData.push(i+1);
-        } 
+    monthDayData(day, btn) {
+      for (var i = 0; i < day; i++) {
+        if (btn == "prev") {
+          vm.prevData.push(i + 1);
+        } else if (btn == "this") {
+          vm.thisData.push(i + 1);
+        } else if (btn == "next") {
+          vm.nextData.push(i + 1);
+        }
       }
     },
     // 日期格式化
@@ -109,6 +117,7 @@ export default {
       var y = date.getFullYear();
       var m = date.getMonth() + 1;
       var d = date.getDate();
+      this.date = y + "/" + m + "/" + d;
       return y + "/" + m + "/" + d;
     }
   },
@@ -122,10 +131,17 @@ export default {
   width: 100%;
   overflow: hidden;
 }
+#title {
+  width: 440px;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  margin: 100px auto 20px;
+}
 #week {
   width: 440px;
   height: 60px;
-  margin: 100px auto 0;
+  margin: 0 auto;
 }
 .week {
   display: block;
@@ -163,7 +179,7 @@ export default {
   line-height: 40px;
   text-align: center;
 }
-.calendar-active{
+.calendar-active {
   background: #000;
   color: #fff;
 }
