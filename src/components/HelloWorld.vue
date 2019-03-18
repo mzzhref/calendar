@@ -185,12 +185,12 @@ export default {
   line-height: 40px;
   text-align: center;
 }
+.calendar-else {
+  color: #eee;
+}
 .calendar-active {
   background: #000;
   color: #fff;
-}
-.calendar-else {
-  color: #eee;
 }
 .calendar:nth-of-type(7n) {
   margin-right: 0;
