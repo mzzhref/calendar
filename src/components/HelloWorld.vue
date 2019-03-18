@@ -117,8 +117,8 @@ export default {
       var y = date.getFullYear();
       var m = date.getMonth() + 1;
       var d = date.getDate();
-      this.date = y + "/" + m + "/" + d;
-      return y + "/" + m + "/" + d;
+      this.date = y + "/" + m;
+      return y + "/" + m;
     }
   },
   mounted() {}
