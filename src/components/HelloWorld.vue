@@ -88,11 +88,11 @@ export default {
     },
     // 每月第一天是周几
     monthFirWeek(date) {
-      console.log(this.timeFormat(date));
+      this.timeFormat(date);
       date.setDate(1);
       var num = date.getDay();
       if (num == 0) {
-        num == 7;
+        num = 7;
       }
       this.weekNum = num;
     },
