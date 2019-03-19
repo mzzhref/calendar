@@ -48,6 +48,7 @@ export default {
       context = canvas.getContext("2d");
       console.log(vm.arr);
       context.clearRect(0, 0, 1000, 500);
+      clearInterval(iTimer);
       iTimer = setInterval(function() {
         if (vm.arr.length == 1) {
           clearInterval(iTimer);
