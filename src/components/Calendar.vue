@@ -138,7 +138,6 @@ export default {
     },
     dateClick(e) {
       let arr = e.target.classList;
-      console.log(arr);
       for (
         let i = 0;
         i < document.getElementsByClassName("calendar").length;

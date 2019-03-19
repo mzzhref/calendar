@@ -37,16 +37,13 @@ export default {
           .replace(/\(/, "")
           .replace(/\)/, "")
           .split(",");
-        console.log(newArr);
         vm.arr[i] = {
           x: newArr[0],
           y: newArr[1]
         };
       }
       canvas = document.getElementById("canvas");
-      console.log(canvas);
       context = canvas.getContext("2d");
-      console.log(vm.arr);
       context.clearRect(0, 0, 1000, 500);
       clearInterval(iTimer);
       iTimer = setInterval(function() {
