@@ -1,6 +1,6 @@
 <template>
   <div class="box">
-    <div id="title">{{ date }}</div>
+    <div id="title">{{ date +'/'+ today }}</div>
     <div id="week">
       <a class="week" href="javascript:;" @click="prev">prev</a>
       <a class="week" href="javascript:;" v-for="(el,index) in week" :key="index">{{ el }}</a>
@@ -8,7 +8,7 @@
     </div>
     <div id="calendar">
       <a
-        class="calendar calendar-else"
+        class="calendar calendar-else calendar-prev"
         href="javascript:;"
         v-for="(prev,index1) in prevData"
         :key="'index1'+index1"
@@ -24,7 +24,7 @@
         @click="dateClick"
       >{{ el }}</a>
       <a
-        class="calendar calendar-else"
+        class="calendar calendar-else calendar-next"
         href="javascript:;"
         v-for="(next,index3) in nextData"
         :key="'index3'+index3"
@@ -32,6 +32,9 @@
         v-if="index3 < (42 - thisData.length - (weekNum - 1))"
         @click="dateClick"
       >{{ next }}</a>
+    </div>
+    <div id="btn">
+      <a class="btn" href="javascript:;" @click="todayClick">today</a>
     </div>
   </div>
 </template>
@@ -45,7 +48,10 @@ export default {
       week: ["一", "二", "三", "四", "五", "六", "日"],
       year: new Date().getFullYear(),
       month: new Date().getMonth() + 1,
-      today: new Date().getDate(),
+      today:
+        new Date().getDate() < 10
+          ? "0" + new Date().getDate()
+          : new Date().getDate(),
       prevData: [],
       thisData: [],
       nextData: [],
@@ -73,6 +79,17 @@ export default {
         "next"
       );
     },
+    // 返回到今天
+    todayClick() {
+      vm.year = new Date().getFullYear();
+      vm.month = new Date().getMonth() + 1;
+      vm.today =
+        new Date().getDate() < 10
+          ? "0" + new Date().getDate()
+          : new Date().getDate();
+      this.init();
+    },
+    // 上个月
     prev() {
       this.month--;
       if (this.month == 0) {
@@ -81,6 +98,7 @@ export default {
       }
       this.init();
     },
+    // 下个月
     next() {
       this.month++;
       if (this.month == 13) {
@@ -116,17 +134,39 @@ export default {
       }
     },
     dateClick(e) {
-      console.log(e.target.classList);
+      var arr = e.target.classList;
+      console.log(arr);
       for (
         var i = 0;
         i < document.getElementsByClassName("calendar").length;
         i++
       ) {
         document
-          .getElementsByClassName("calendar")[i]
-          .classList.remove("calendar-active");
+          .getElementsByClassName("calendar")
+          [i].classList.remove("calendar-active");
       }
-      e.target.classList.add("calendar-active");
+      arr.add("calendar-active");
+
+      if (this.arrIsNot(arr, "calendar-prev")) {
+        this.prev();
+        e.target.classList.remove("calendar-active");
+      } else if (this.arrIsNot(arr, "calendar-next")) {
+        this.next();
+        e.target.classList.remove("calendar-active");
+      }
+      var num = e.target.innerText;
+      if (num < 10) {
+        num = "0" + num;
+      }
+      this.today = num;
+    },
+    // 数组中是否存在某个值
+    arrIsNot(arr, el) {
+      for (var i = 0; i < arr.length; i++) {
+        if (arr[i] == el) {
+          return true;
+        }
+      }
     },
     // 日期格式化
     timeFormat(date) {
@@ -210,5 +250,20 @@ export default {
 }
 .calendar:nth-of-type(7n) {
   margin-right: 0;
+}
+#btn{
+  width: 340px;
+  height: 40px;
+  margin: 20px auto 0;
+}
+.btn{
+  display: block;
+  width: 80px;
+  height: 40px;
+  float: right;
+  background: #ccc;
+  color: #000;
+  line-height: 40px;
+  text-align: center;
 }
 </style>
