@@ -13,6 +13,7 @@
         v-for="(prev,index1) in prevData"
         :key="'index1'+index1"
         v-if="(index1+1)<weekNum"
+        @click="dateClick"
       >{{ prevData[prevData.length - (weekNum - index1 - 1)] }}</a>
       <a
         class="calendar"
@@ -20,6 +21,7 @@
         v-for="(el,index2) in thisData"
         :key="'index2'+index2"
         :class="{'calendar-active': el == today?true:false}"
+        @click="dateClick"
       >{{ el }}</a>
       <a
         class="calendar calendar-else"
@@ -28,6 +30,7 @@
         :key="'index3'+index3"
         v-bind:data-key="index3"
         v-if="index3 < (42 - thisData.length - (weekNum - 1))"
+        @click="dateClick"
       >{{ next }}</a>
     </div>
   </div>
@@ -111,6 +114,19 @@ export default {
           vm.nextData.push(i + 1);
         }
       }
+    },
+    dateClick(e) {
+      console.log(e.target.classList);
+      for (
+        var i = 0;
+        i < document.getElementsByClassName("calendar").length;
+        i++
+      ) {
+        document
+          .getElementsByClassName("calendar")[i]
+          .classList.remove("calendar-active");
+      }
+      e.target.classList.add("calendar-active");
     },
     // 日期格式化
     timeFormat(date) {
