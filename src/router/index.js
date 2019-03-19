@@ -5,7 +5,7 @@ import ConnectionLine from '@/components/ConnectionLine'
 
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
   routes: [
     {
       path: '/',
@@ -25,3 +25,12 @@ export default new Router({
     }
   ]
 })
+
+router.beforeEach((to, from, next) => {
+  if (to.meta.title) {
+      document.title = to.meta.title
+  }
+  next()
+})
+
+export default router;

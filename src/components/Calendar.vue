@@ -40,7 +40,7 @@
 </template>
 
 <script>
-var vm = null;
+let vm = null;
 export default {
   name: "Calendar",
   data() {
@@ -111,7 +111,7 @@ export default {
     monthFirWeek(date) {
       this.timeFormat(date);
       date.setDate(1);
-      var num = date.getDay();
+      let num = date.getDay();
       if (num == 0) {
         num = 7;
       }
@@ -123,7 +123,7 @@ export default {
     },
     // 每月的天数数组
     monthDayData(day, btn) {
-      for (var i = 0; i < day; i++) {
+      for (let i = 0; i < day; i++) {
         if (btn == "prev") {
           vm.prevData.push(i + 1);
         } else if (btn == "this") {
@@ -134,10 +134,10 @@ export default {
       }
     },
     dateClick(e) {
-      var arr = e.target.classList;
+      let arr = e.target.classList;
       console.log(arr);
       for (
-        var i = 0;
+        let i = 0;
         i < document.getElementsByClassName("calendar").length;
         i++
       ) {
@@ -154,7 +154,7 @@ export default {
         this.next();
         e.target.classList.remove("calendar-active");
       }
-      var num = e.target.innerText;
+      let num = e.target.innerText;
       if (num < 10) {
         num = "0" + num;
       }
@@ -162,7 +162,7 @@ export default {
     },
     // 数组中是否存在某个值
     arrIsNot(arr, el) {
-      for (var i = 0; i < arr.length; i++) {
+      for (let i = 0; i < arr.length; i++) {
         if (arr[i] == el) {
           return true;
         }
@@ -170,9 +170,9 @@ export default {
     },
     // 日期格式化
     timeFormat(date) {
-      var y = date.getFullYear();
-      var m = date.getMonth() + 1;
-      var d = date.getDate();
+      let y = date.getFullYear();
+      let m = date.getMonth() + 1;
+      let d = date.getDate();
       if (m < 10) {
         m = "0" + m;
       }
