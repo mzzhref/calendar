@@ -10,12 +10,18 @@ export default new Router({
     {
       path: '/',
       name: 'Calendar',
-      component: Calendar
+      component: Calendar,
+      meta: {
+        title: '日历'
+      }
     },
     {
       path: '/ConnectionLine',
       name: 'ConnectionLine',
-      component: ConnectionLine
+      component: ConnectionLine,
+      meta: {
+        title: '连线'
+      }
     }
   ]
 })
