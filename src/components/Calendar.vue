@@ -34,9 +34,9 @@
       >{{ next }}</a>
     </div>
     <div id="btn">
-      <input type="text" class="txt" placeholder="year" v-model="year">
-      <input type="text" class="txt" placeholder="month" v-model="month">
-      <input type="text" class="txt" placeholder="day" v-model="today">
+      <input type="number" min="1" class="txt" placeholder="year" v-model="year" @input="init">
+      <input type="number" min="1" class="txt" placeholder="month" v-model="month" @input="init">
+      <input type="number" min="1" class="txt" placeholder="day" v-model="today" @input="init">
       <a class="btn" href="javascript:;" @click="todayClick">today</a>
     </div>
   </div>
@@ -50,7 +50,7 @@ export default {
     return {
       week: ["一", "二", "三", "四", "五", "六", "日"],
       year: new Date().getFullYear(),
-      month: new Date().getMonth() + 1,
+      month: (new Date().getMonth() + 1) < 10?'0'+(new Date().getMonth() + 1):(new Date().getMonth() + 1),
       today:
         new Date().getDate() < 10
           ? "0" + new Date().getDate()
