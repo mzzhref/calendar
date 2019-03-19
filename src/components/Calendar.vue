@@ -34,6 +34,9 @@
       >{{ next }}</a>
     </div>
     <div id="btn">
+      <input type="text" class="txt" placeholder="year" v-model="year">
+      <input type="text" class="txt" placeholder="month" v-model="month">
+      <input type="text" class="txt" placeholder="day" v-model="today">
       <a class="btn" href="javascript:;" @click="todayClick">today</a>
     </div>
   </div>
@@ -261,10 +264,18 @@ export default {
 .calendar:nth-of-type(7n) {
   margin-right: 0;
 }
+#txt,
 #btn{
   width: 280px;
   height: 30px;
   margin: 20px auto 0;
+}
+.txt{
+  width: 60px;
+  height: 30px;
+  outline: none;
+  box-sizing: border-box;
+  text-indent: 10px;
 }
 .btn{
   display: block;
