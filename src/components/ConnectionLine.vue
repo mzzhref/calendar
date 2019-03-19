@@ -1,17 +1,18 @@
 <template>
-    <div>
-        {{ msg }}
-    </div>
+  <div>{{ msg }}</div>
 </template>
 <script>
 export default {
-    data(){
-        return{
-            msg: 'nihao'
-        }
-    }
-}
+  name: "ConnectionLine",
+  data() {
+    return {
+      msg: "nihao"
+    };
+  },
+  created() {},
+  methods: {},
+  mounted() {}
+};
 </script>
 <style scoped>
-
 </style>
