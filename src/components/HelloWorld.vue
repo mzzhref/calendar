@@ -199,23 +199,31 @@ export default {
   line-height: 30px;
   text-align: center;
   margin: 100px auto 20px;
+  font-size: 20px;
 }
 #week {
   width: 440px;
-  height: 60px;
+  height: 50px;
   margin: 0 auto;
 }
 .week {
   display: block;
   width: 40px;
-  height: 40px;
+  height: 30px;
   float: left;
-  background: #ccc;
-  margin-right: 10px;
-  margin-bottom: 10px;
-  color: #000;
-  line-height: 40px;
+  background: #e8b685;
+  line-height: 30px;
   text-align: center;
+  font-size: 18px;
+  color: #fff;
+}
+.week:first-child{
+  width: 70px;
+  margin-right: 10px;
+}
+.week:last-child{
+  width: 70px;
+  margin-left: 10px;
 }
 .week-active {
   background: #000;
@@ -225,45 +233,47 @@ export default {
   margin-right: 0;
 }
 #calendar {
-  width: 340px;
-  height: 290px;
+  width: 280px;
+  height: 240px;
   margin: 0 auto;
+  border-left: 1px solid #e8b685;
+  border-bottom: 1px solid #e8b685;
 }
 .calendar {
   display: block;
   width: 40px;
   height: 40px;
   float: left;
-  background: #ccc;
-  margin-right: 10px;
-  margin-bottom: 10px;
   color: #000;
   line-height: 40px;
   text-align: center;
+  border-right: 1px solid #e8b685;
+  border-top: 1px solid #e8b685;
+  box-sizing: border-box;
 }
 .calendar-else {
-  color: #eee;
+  color: #ccc;
 }
 .calendar-active {
-  background: #000;
-  color: #fff;
+  background: #f5f5f5;
+  color: red;
 }
 .calendar:nth-of-type(7n) {
   margin-right: 0;
 }
 #btn{
-  width: 340px;
-  height: 40px;
+  width: 280px;
+  height: 30px;
   margin: 20px auto 0;
 }
 .btn{
   display: block;
   width: 80px;
-  height: 40px;
+  height: 30px;
   float: right;
-  background: #ccc;
-  color: #000;
-  line-height: 40px;
+  background: #deb887;
+  color: #fff;
+  line-height: 30px;
   text-align: center;
 }
 </style>
