@@ -42,7 +42,7 @@
 <script>
 var vm = null;
 export default {
-  name: "HelloWorld",
+  name: "Calendar",
   data() {
     return {
       week: ["一", "二", "三", "四", "五", "六", "日"],
