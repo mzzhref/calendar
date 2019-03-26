@@ -91,9 +91,9 @@ export function calendar(date, btn) {
     if (btn) {
       tmp += " (" + tgString.charAt((cYear - 4) % 10);
       tmp += dzString.charAt((cYear - 4) % 12);
-      tmp += "(";
+      tmp += "( ";
       tmp += sx.charAt((cYear - 4) % 12);
-      tmp += ")年)";
+      tmp += " )年)";
     } else {
       if (cMonth < 1) {
         tmp += "(闰)";
@@ -113,7 +113,7 @@ export function calendar(date, btn) {
   function GetLunarDay(solarYear, solarMonth, solarDay, btn) {
     //solarYear = solarYear<1900?(1900+solarYear):solarYear; 
     if (solarYear < 1921 || solarYear > 2200) {
-      return "大哥，你活不到那一天的";
+      return " (大哥，你活不到那一天的!!!)";
     } else {
       solarMonth = (parseInt(solarMonth) > 0) ? (solarMonth - 1) : 11;
       e2c(solarYear, solarMonth, solarDay);

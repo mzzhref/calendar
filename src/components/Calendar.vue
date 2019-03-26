@@ -15,6 +15,7 @@
         v-for="(prev,index1) in prevData"
         :key="'index1'+index1"
         v-if="(index1+1)<weekNum"
+        :data-calendar="$utils.calendar(prevDateData +'/'+ prevData[prevData.length - (weekNum - index1 - 1)])"
         @click="dateClick"
       >{{ prevData[prevData.length - (weekNum - index1 - 1)] }}</a>
       <a
@@ -23,6 +24,7 @@
         v-for="(el,index2) in thisData"
         :key="'index2'+index2"
         :class="{'calendar-active': el == today?true:false}"
+        :data-calendar="$utils.calendar(thisDateData +'/'+ el)"
         @click="dateClick"
       >{{ el }}</a>
       <a
@@ -63,6 +65,9 @@ export default {
       prevData: [],
       thisData: [],
       nextData: [],
+      prevDateData: '',
+      thisDateData: '',
+      nextDateData: '',
       weekNum: null,
       date: null
     };
@@ -76,15 +81,22 @@ export default {
       vm.prevData = [];
       vm.thisData = [];
       vm.nextData = [];
+      vm.prevDateData = '';
+      vm.thisDateData = '';
+      vm.nextDateData = '';
       this.monthFirWeek(new Date(vm.year, vm.month - 1, 1));
       this.monthDayData(
         this.thisMonthLastDay(this.year, this.month - 1),
-        "prev"
+        "prev",
+        this.year,
+        Number(this.month - 1)
       );
-      this.monthDayData(this.thisMonthLastDay(this.year, this.month), "this");
+      this.monthDayData(this.thisMonthLastDay(this.year, this.month), "this", this.year, this.month);
       this.monthDayData(
         this.thisMonthLastDay(this.year, this.month + 1),
-        "next"
+        "next",
+        this.year,
+        Number(this.month + 1)
       );
     },
     // 返回到今天
@@ -130,14 +142,28 @@ export default {
       return new Date(year, month, 0).getDate();
     },
     // 每月的天数数组
-    monthDayData(day, btn) {
+    monthDayData(day, btn, year, month) {
+      if(month == 0){
+        month = 12;
+        year--;
+      }
+      if(month == 13){
+        month = 1;
+        year++;
+      }
       for (let i = 0; i < day; i++) {
         if (btn == "prev") {
           vm.prevData.push(i + 1);
+          vm.prevDateData = year + '/' + month;
+          console.log(vm.prevDateData)
         } else if (btn == "this") {
           vm.thisData.push(i + 1);
+          vm.thisDateData = year + '/' + month;
+          console.log(vm.thisDateData)
         } else if (btn == "next") {
           vm.nextData.push(i + 1);
+          vm.nextDateData = year + '/' + month;
+          console.log(vm.nextDateData)
         }
       }
     },
@@ -210,13 +236,11 @@ export default {
   text-align: center;
   margin: 100px auto 20px;
   font-size: 20px;
-  border-right: 1px solid #e8b685;
 }
 #week {
   width: 500px;
   height: 50px;
   margin: 0 auto;
-  border-right: 1px solid #e8b685;
 }
 .week {
   display: block;
@@ -257,11 +281,22 @@ export default {
   height: 60px;
   float: left;
   color: #000;
-  line-height: 60px;
+  line-height: 40px;
   text-align: center;
   border-right: 1px solid #e8b685;
   border-top: 1px solid #e8b685;
   box-sizing: border-box;
+  font-size: 14px;
+  position: relative;
+}
+.calendar:after{
+  content: attr(data-calendar);
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  line-height: 30px;
+  font-size: 12px;
 }
 .calendar-else {
   color: #ccc;
@@ -269,6 +304,10 @@ export default {
 .calendar-active {
   background: #f5f5f5;
   color: red;
+  font-size: 16px;
+}
+.calendar-active:after{
+  font-size: 14px;
 }
 .calendar:nth-of-type(7n) {
   margin-right: 0;
