@@ -302,6 +302,7 @@ export default {
   left: 0;
   bottom: 0;
   width: 100%;
+  height: 30px;
   line-height: 30px;
   font-size: 12px;
 }
