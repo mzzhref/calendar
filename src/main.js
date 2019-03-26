@@ -4,6 +4,10 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 
+import utils from './utils/index.js'
+// 实例挂载
+Vue.prototype.$utils = utils
+
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */

@@ -1,10 +1,12 @@
 <template>
   <div class="box">
-    <div id="title">{{ date +'/'+ today }}</div>
+    <div id="title">
+      <a class="week prev" href="javascript:;" @click="prev">prev</a>
+      {{ date +'/'+ today }}
+      <a class="week next" href="javascript:;" @click="next">next</a>
+    </div>
     <div id="week">
-      <a class="week" href="javascript:;" @click="prev">prev</a>
       <a class="week" href="javascript:;" v-for="(el,index) in week" :key="index">{{ el }}</a>
-      <a class="week" href="javascript:;" @click="next">next</a>
     </div>
     <div id="calendar">
       <a
@@ -50,7 +52,10 @@ export default {
     return {
       week: ["一", "二", "三", "四", "五", "六", "日"],
       year: new Date().getFullYear(),
-      month: (new Date().getMonth() + 1) < 10?'0'+(new Date().getMonth() + 1):(new Date().getMonth() + 1),
+      month:
+        new Date().getMonth() + 1 < 10
+          ? "0" + (new Date().getMonth() + 1)
+          : new Date().getMonth() + 1,
       today:
         new Date().getDate() < 10
           ? "0" + new Date().getDate()
@@ -196,17 +201,19 @@ export default {
   overflow: hidden;
 }
 #title {
-  width: 440px;
+  width: 280px;
   height: 30px;
   line-height: 30px;
   text-align: center;
   margin: 100px auto 20px;
   font-size: 20px;
+  border-right: 1px solid #e8b685;
 }
 #week {
-  width: 440px;
-  height: 50px;
+  width: 280px;
+  height: 30px;
   margin: 0 auto;
+  border-right: 1px solid #e8b685;
 }
 .week {
   display: block;
@@ -219,20 +226,20 @@ export default {
   font-size: 18px;
   color: #fff;
 }
-.week:first-child{
-  width: 70px;
-  margin-right: 10px;
-}
-.week:last-child{
-  width: 70px;
-  margin-left: 10px;
-}
 .week-active {
   background: #000;
   color: #fff;
 }
 .week:nth-of-type(9n) {
   margin-right: 0;
+}
+.prev {
+  width: 60px;
+  float: left;
+}
+.next {
+  width: 60px;
+  float: right;
 }
 #calendar {
   width: 280px;
@@ -264,19 +271,19 @@ export default {
   margin-right: 0;
 }
 #txt,
-#btn{
+#btn {
   width: 280px;
   height: 30px;
   margin: 20px auto 0;
 }
-.txt{
+.txt {
   width: 60px;
   height: 30px;
   outline: none;
   box-sizing: border-box;
   text-indent: 10px;
 }
-.btn{
+.btn {
   display: block;
   width: 80px;
   height: 30px;
