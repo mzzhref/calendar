@@ -89,11 +89,11 @@ export function calendar(date, btn) {
     var tmp = "";
     /*显示农历年：（ 如：甲午(马)年 ）*/
     if (btn) {
-      tmp += tgString.charAt((cYear - 4) % 10);
+      tmp += " (" + tgString.charAt((cYear - 4) % 10);
       tmp += dzString.charAt((cYear - 4) % 12);
       tmp += "(";
       tmp += sx.charAt((cYear - 4) % 12);
-      tmp += ")年 ";
+      tmp += ")年)";
     } else {
       if (cMonth < 1) {
         tmp += "(闰)";

@@ -2,7 +2,7 @@
   <div class="box">
     <div id="title">
       <a class="week prev" href="javascript:;" @click="prev">prev</a>
-      {{ date +'/'+ today + '(' + this.$utils.calendar(date +'/'+ today, true) + ')' }}
+      {{ date +'/'+ today + this.$utils.calendar(date +'/'+ today, true) }}
       <a class="week next" href="javascript:;" @click="next">next</a>
     </div>
     <div id="week">
