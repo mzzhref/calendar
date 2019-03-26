@@ -3,7 +3,11 @@
     <div id="title">
       <a class="week prev" href="javascript:;" @click="prev">prev</a>
       {{ date +'/'+ today + this.$utils.calendar(date +'/'+ today, true) }}
-      <a class="week next" href="javascript:;" @click="next">next</a>
+      <a
+        class="week next"
+        href="javascript:;"
+        @click="next"
+      >next</a>
     </div>
     <div id="week">
       <a class="week" href="javascript:;" v-for="(el,index) in week" :key="index">{{ el }}</a>
@@ -34,11 +38,12 @@
         :key="'index3'+index3"
         v-bind:data-key="index3"
         v-if="index3 < (42 - thisData.length - (weekNum - 1))"
+        :data-calendar="$utils.calendar(nextDateData +'/'+ next)"
         @click="dateClick"
       >{{ next }}</a>
     </div>
     <div id="btn">
-      <input type="number" min="1" class="txt" placeholder="year" v-model="year" @input="init">
+      <input type="number" min="1921" class="txt" placeholder="year" v-model="year" @input="init">
       <input type="number" min="1" class="txt" placeholder="month" v-model="month" @input="init">
       <input type="number" min="1" class="txt" placeholder="day" v-model="today" @input="init">
       <a class="btn" href="javascript:;" @click="todayClick">today</a>
@@ -65,9 +70,9 @@ export default {
       prevData: [],
       thisData: [],
       nextData: [],
-      prevDateData: '',
-      thisDateData: '',
-      nextDateData: '',
+      prevDateData: "",
+      thisDateData: "",
+      nextDateData: "",
       weekNum: null,
       date: null
     };
@@ -81,22 +86,27 @@ export default {
       vm.prevData = [];
       vm.thisData = [];
       vm.nextData = [];
-      vm.prevDateData = '';
-      vm.thisDateData = '';
-      vm.nextDateData = '';
+      vm.prevDateData = "";
+      vm.thisDateData = "";
+      vm.nextDateData = "";
       this.monthFirWeek(new Date(vm.year, vm.month - 1, 1));
       this.monthDayData(
         this.thisMonthLastDay(this.year, this.month - 1),
         "prev",
         this.year,
-        Number(this.month - 1)
+        Number(this.month) - 1
       );
-      this.monthDayData(this.thisMonthLastDay(this.year, this.month), "this", this.year, this.month);
+      this.monthDayData(
+        this.thisMonthLastDay(this.year, this.month),
+        "this",
+        this.year,
+        this.month
+      );
       this.monthDayData(
         this.thisMonthLastDay(this.year, this.month + 1),
         "next",
         this.year,
-        Number(this.month + 1)
+        Number(this.month) + 1
       );
     },
     // 返回到今天
@@ -143,27 +153,24 @@ export default {
     },
     // 每月的天数数组
     monthDayData(day, btn, year, month) {
-      if(month == 0){
+      if (month == 0) {
         month = 12;
         year--;
       }
-      if(month == 13){
+      if (month == 13) {
         month = 1;
         year++;
       }
       for (let i = 0; i < day; i++) {
         if (btn == "prev") {
           vm.prevData.push(i + 1);
-          vm.prevDateData = year + '/' + month;
-          console.log(vm.prevDateData)
+          vm.prevDateData = year + "/" + month;
         } else if (btn == "this") {
           vm.thisData.push(i + 1);
-          vm.thisDateData = year + '/' + month;
-          console.log(vm.thisDateData)
+          vm.thisDateData = year + "/" + month;
         } else if (btn == "next") {
           vm.nextData.push(i + 1);
-          vm.nextDateData = year + '/' + month;
-          console.log(vm.nextDateData)
+          vm.nextDateData = year + "/" + month;
         }
       }
     },
@@ -217,8 +224,8 @@ export default {
     }
   },
   mounted() {
-    console.log(this.$utils.calendar('2019/03/26'))
-    console.log(this.$utils.calendar('2019/03/27', true))
+    // console.log(this.$utils.calendar("2019/03/26"));
+    // console.log(this.$utils.calendar("2019/03/27", true));
   }
 };
 </script>
@@ -289,7 +296,7 @@ export default {
   font-size: 14px;
   position: relative;
 }
-.calendar:after{
+.calendar:after {
   content: attr(data-calendar);
   position: absolute;
   left: 0;
@@ -306,7 +313,7 @@ export default {
   color: red;
   font-size: 16px;
 }
-.calendar-active:after{
+.calendar-active:after {
   font-size: 14px;
 }
 .calendar:nth-of-type(7n) {
@@ -326,7 +333,7 @@ export default {
   text-indent: 10px;
   float: left;
 }
-.txt:nth-of-type(2){
+.txt:nth-of-type(2) {
   margin: 0 10px;
 }
 .btn {
