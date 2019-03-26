@@ -2,7 +2,7 @@
   <div class="box">
     <div id="title">
       <a class="week prev" href="javascript:;" @click="prev">prev</a>
-      {{ date +'/'+ today }}
+      {{ date +'/'+ today + '(' + this.$utils.calendar(date +'/'+ today, true) + ')' }}
       <a class="week next" href="javascript:;" @click="next">next</a>
     </div>
     <div id="week">
@@ -190,7 +190,10 @@ export default {
       return y + "/" + m;
     }
   },
-  mounted() {}
+  mounted() {
+    console.log(this.$utils.calendar('2019/03/26'))
+    console.log(this.$utils.calendar('2019/03/27', true))
+  }
 };
 </script>
 
@@ -201,27 +204,27 @@ export default {
   overflow: hidden;
 }
 #title {
-  width: 280px;
-  height: 30px;
-  line-height: 30px;
+  width: 500px;
+  height: 50px;
+  line-height: 50px;
   text-align: center;
   margin: 100px auto 20px;
   font-size: 20px;
   border-right: 1px solid #e8b685;
 }
 #week {
-  width: 280px;
-  height: 30px;
+  width: 500px;
+  height: 50px;
   margin: 0 auto;
   border-right: 1px solid #e8b685;
 }
 .week {
   display: block;
-  width: 40px;
-  height: 30px;
+  width: calc(500px / 7);
+  height: 50px;
   float: left;
   background: #e8b685;
-  line-height: 30px;
+  line-height: 50px;
   text-align: center;
   font-size: 18px;
   color: #fff;
@@ -242,19 +245,19 @@ export default {
   float: right;
 }
 #calendar {
-  width: 280px;
-  height: 240px;
+  width: 500px;
+  height: 360px;
   margin: 0 auto;
   border-left: 1px solid #e8b685;
   border-bottom: 1px solid #e8b685;
 }
 .calendar {
   display: block;
-  width: 40px;
-  height: 40px;
+  width: calc(500px / 7);
+  height: 60px;
   float: left;
   color: #000;
-  line-height: 40px;
+  line-height: 60px;
   text-align: center;
   border-right: 1px solid #e8b685;
   border-top: 1px solid #e8b685;
@@ -272,16 +275,20 @@ export default {
 }
 #txt,
 #btn {
-  width: 280px;
+  width: 500px;
   height: 30px;
   margin: 20px auto 0;
 }
 .txt {
-  width: 60px;
+  width: 70px;
   height: 30px;
   outline: none;
   box-sizing: border-box;
   text-indent: 10px;
+  float: left;
+}
+.txt:nth-of-type(2){
+  margin: 0 10px;
 }
 .btn {
   display: block;
